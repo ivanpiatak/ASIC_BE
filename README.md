@@ -1,2 +1,2 @@
 # ASIC_BE
-ASIC BE flow scripts for the Cadence RTL Compiler and Cadence Encounter. Only for the educational purposes.
+ASIC BE flow scripts for the Cadence RTL Compiler and Cadence Encounter. Only for educational purposes.
