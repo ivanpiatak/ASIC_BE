@@ -7,7 +7,7 @@
 
 
 ## Timing constraints file from the synthesis
-create_constraint_mode -name CONSTRAINTS -sdc_files {../Source/Constraints_synth_typ.sdc}
+create_constraint_mode -name CONSTRAINTS -sdc_files ${PAR_SDC_PATH}/${PAR_SDC_TOP_NAME}
 
 
 ## Create timing libraries sets
