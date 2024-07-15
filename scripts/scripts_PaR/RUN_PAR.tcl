@@ -48,3 +48,5 @@ set PaR_OUT   "TRUE";
 
 source ../scripts/scripts_PaR/FLOW_PAR.tcl;                    # Source PaR steps from the user TCL file
 
+# Open Emcounter GUI
+win
