@@ -26,6 +26,11 @@ set SYN_REPORTS_FOLDER "../reports/reports_syn";                 # Reports folde
 set SYN_RESULTS_FOLDER "../results/results_syn";                 # Results folder
 ### ================= END of USER SETTINGS ==========
 
+### ============== PROC to run synthesis ============
+### Set TRUE to enable technological mapping; otherwise only elaboration is active
+set MAPPING  "FALSE";
+### ========== end of PROC to run synthesis =========
+
 
 
 ### ================= SYNTHESIS =================
@@ -35,29 +40,30 @@ include ${SYN_CORNER}
 # Read in Verilog HDL filelist for synthesis
 read_hdl -v2001 ${RTL_PATH}/${RTL_FILELIST_NAME}
 
-# Synthesize (elabirate, no mapping)
+# Synthesize (elaborate, no mapping)
 elaborate ${RTL_TOP_NAME}
 
-# Rear SDC constraints
-read_sdc ${SYN_SDC_PATH}/${SYN_SDC_TOP_NAME}
+if {$MAPPING eq "TRUE"} {
+   # Rear SDC constraints
+   read_sdc ${SYN_SDC_PATH}/${SYN_SDC_TOP_NAME}
 
-# Synthesize (technology mapped)
-synthesize -to_mapped
-synthesize -incremental
+   # Synthesize (technology mapped)
+   synthesize -to_mapped
+   synthesize -incremental
 
-# Generate area and timing reports
-report timing                > ${SYN_REPORTS_FOLDER}/${RTL_TOP_NAME}_syn_timing_report.rpt
-report area                  > ${SYN_REPORTS_FOLDER}/${RTL_TOP_NAME}_syn_area_report.rpt
-report_timing -lint -verbose > ${SYN_REPORTS_FOLDER}/${RTL_TOP_NAME}_syn_timing_problems.rpt
+   # Generate area and timing reports
+   report timing                > ${SYN_REPORTS_FOLDER}/${RTL_TOP_NAME}_syn_timing_report.rpt
+   report area                  > ${SYN_REPORTS_FOLDER}/${RTL_TOP_NAME}_syn_area_report.rpt
+   report_timing -lint -verbose > ${SYN_REPORTS_FOLDER}/${RTL_TOP_NAME}_syn_timing_problems.rpt
 
-# Export synthesized and mapped Verilog netlist - result of the synthesis
-write_hdl -mapped > ${SYN_RESULTS_FOLDER}/${RTL_TOP_NAME}_syn_netlist.v
+   # Export synthesized and mapped Verilog netlist - result of the synthesis
+   write_hdl -mapped > ${SYN_RESULTS_FOLDER}/${RTL_TOP_NAME}_syn_netlist.v
 
-# Export SDC file for the next PaR stages
-write_sdc > ${SYN_RESULTS_FOLDER}/${RTL_TOP_NAME}_syn.sdc
+   # Export SDC file for the next PaR stages
+   write_sdc > ${SYN_RESULTS_FOLDER}/${RTL_TOP_NAME}_syn.sdc
+}
 
 # Open RTL Compiler GUI
 gui_show
 
 ### ================= END of SYNTHESIS ==========
-
