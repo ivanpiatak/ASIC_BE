@@ -27,8 +27,9 @@ set SYN_RESULTS_FOLDER "../results/results_syn";                 # Results folde
 ### ================= END of USER SETTINGS ==========
 
 ### ============== PROC to run synthesis ============
-### Set TRUE to enable technological mapping; otherwise only elaboration is active
+### Set TRUE to enable technological mapping and results export; otherwise only elaboration is active
 set MAPPING  "FALSE";
+#set MAPPING  "TRUE";
 ### ========== end of PROC to run synthesis =========
 
 

@@ -181,9 +181,17 @@ if {$PaR_OUT eq "TRUE"} {
    all_hold_analysis_views 
    all_setup_analysis_views 
 
+   # Drop file extenstion
+   set FILENAME [string trimright ${NETLIST_TOP_NAME} .v]
+
+   # Create folder
+   if {![file exists ${PAR_RESULTS_FOLDER}]} {
+      file mkdir ${PAR_RESULTS_FOLDER}
+   }
+
    # EXPORT RESULTS of the PaR stage
-   write_sdf -view TYPview ${PAR_RESULTS_FOLDER}/${NETLIST_TOP_NAME}.sdf
-   saveNetlist ${PAR_RESULTS_FOLDER}/${NETLIST_TOP_NAME}.v -includePhysicalCell {FEED7HD FEED10HD FEED15HD FEED1HD FEED25HD FEED2HD FEED3HD FEED5HD}
-   defOut -floorplan -netlist -routing ${PAR_RESULTS_FOLDER}/${NETLIST_TOP_NAME}.def
+   write_sdf -view TYPview ${PAR_RESULTS_FOLDER}/${FILENAME}.sdf
+   saveNetlist ${PAR_RESULTS_FOLDER}/${FILENAME}.v -includePhysicalCell {FEED7HD FEED10HD FEED15HD FEED1HD FEED25HD FEED2HD FEED3HD FEED5HD}
+   defOut -floorplan -netlist -routing ${PAR_RESULTS_FOLDER}/${FILENAME}.def
 }
 ### ================= END of OUTPUT ====================
